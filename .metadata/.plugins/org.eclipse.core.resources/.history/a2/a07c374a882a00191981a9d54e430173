@@ -1,0 +1,10 @@
+package edu.csye6220.assignmentCart;
+
+public class StoreInventory {
+
+	private static Products[] prList = { new Products("Books", "Java Servlet Programming [$29.95]", 29.95),
+			new Products("Books", "Java Servlet Programming [$29.95]", 29.95),
+			new Products("Books", "Java Servlet Programming [$29.95]", 29.95),
+			new Products("Books", "Java Servlet Programming [$29.95]", 29.95),
+			new Products("Books", "Java Servlet Programming [$29.95]", 29.95) };
+}

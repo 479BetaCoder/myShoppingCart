@@ -1,0 +1,79 @@
+package edu.csye6220.assignmentCart;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class ViewCart
+ */
+@WebServlet("/ViewCart")
+public class ViewCart extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ViewCart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		ShoppingCartController shpCart;
+		synchronized (session) {
+			shpCart = (ShoppingCartController) session.getAttribute("shpCart");
+			if (shpCart == null) {
+				out.println("<h2><I>Hello! You have not yet started shopping. Please visit our <a href=\"Store\">store</a></I></h2>");
+			}
+			
+			ArrayList<OrderedProduct> itemsOrdered = shpCart.getItemsOrdered();
+			OrderedProduct order;
+			if (itemsOrdered.size() == 0) {
+				out.println("<H2><I>No items in your cart...</I></H2>");
+			} else {
+				String title = "Status of Your Order";
+				out.println("<!DOCTYPE HTML>\n" + "<html>\n" + "<head><title>Cart Summary</title></head>\n" + "<body>\n"
+						+ "<h1 style=\"align:\"center\">" + title + "</h1>" + "<div>"
+						+ "<table BORDER=1 ALIGN=\"CENTER\">\n" + "<TR BGCOLOR=\"#FFAD00\">\n" + "<TH>Description\n"
+						+ " <TH>Unit Cost");
+				for (int i = 0; i < itemsOrdered.size(); i++) {
+					order = (OrderedProduct) itemsOrdered.get(i);
+					out.println(
+							"<TR>\n" + " <TD>" + order.getDescription() + "\n" + " <TD>" + order.getUnitCost() + "\n");
+				}
+				
+				out.println("</div></body></html>");
+
+			}
+
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

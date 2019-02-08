@@ -1,0 +1,82 @@
+package edu.csye6220.assignmentCart;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class AddCartView
+ */
+@WebServlet("/AddCartView")
+public class AddCartView extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddCartView() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		ShoppingCartController cart;
+		synchronized(session) {
+		cart = (ShoppingCart)session.getAttribute("shoppingCart");
+		// New visitors get a fresh shopping cart.
+		// Previous visitors keep using their existing cart.
+		if (cart == null) {
+		cart = new ShoppingCart();
+		session.setAttribute("shoppingCart", cart);
+		}
+		
+		
+		
+		String[] selectedItems = request.getParameterValues("item");
+		response.setContentType("text/html");
+		PrintWriter prStore = response.getWriter();
+		String formURL = "ViewCart";
+		formURL = response.encodeURL(formURL);
+
+		String docType = "<!DOCTYPE HTML>\n";
+		prStore.println(docType + "<html>\n" + "<head><title>My Store</title></head>\n" + "<body>\n"
+				+ "<h1>Shop World</h1>" + "<hr></hr>"
+				+ "<p style=\"align:center\">The following item(s) has been added to your Shopping Cart successfully</p>\n"
+				+ "<div id=\"menu\" >\n" + "<ul>\n");
+
+		if (selectedItems == null || selectedItems.length == 0) {
+			prStore.println("<p>You have not selected any items to add to the cart</p>\n");
+		} else {
+			for (String item : selectedItems) {
+				prStore.println("<li>" + item + "</li>\n");
+			}
+		}
+		prStore.println("</ul></div>" + "<div id=\"menu\" >\n" + "<ul style=\"list-style:none;\">\n"
+				+ "<li style=\"display:inline;padding:5px\"><a href=\"CartSummary\">[View Cart]</a></li>"
+				+ "<li style=\"display:inline;padding:5px\"><a href=\"Books\">[Go to Books Page]</a></li>\n"
+				+ "<li style=\"display:inline;padding:5px\"><a href=\"Music\">[Go to Music Page]</a></li>\n"
+				+ "<li style=\"display:inline;padding:5px\"><a href=\"Computers\">[Go to Computers Page]</a>\n</div>"
+				+ "</body></html>");
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

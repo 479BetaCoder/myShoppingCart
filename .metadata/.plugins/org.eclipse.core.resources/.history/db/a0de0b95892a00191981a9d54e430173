@@ -1,0 +1,26 @@
+package edu.csye6220.assignmentCart;
+
+public class StoreInventory {
+
+	private static Products[] prList = { new Products("Books", "Java Servlet Programming [$29.95]", 29.95),
+			new Products("Books", "Oracle Database Programming [$48.95]", 48.95),
+			new Products("Books", "System Analysis and Design with UML [$14.95]", 14.95),
+			new Products("Books", "Object Oriented Software Engineering [$35.99]", 35.99),
+			new Products("Books", "Java Web Services [$27.99]", 27.99),
+			
+	
+			new Products("Music", "I'm Going to Tell You a Secret by Madonna [$26.99]", 26.99),
+			new Products("Music", "Baby one more time by Britney Spears [$10.95]", 10.95),
+			new Products("Music", "Justified by Justin Timberlake [$9.97]", 9.97),
+			new Products("Music", "Loose By Nelly Furtado [$13.98]", 13.98),
+			new Products("Music", "Gold Digger by Kanye West [$27.99]", 27.99),
+			
+			new Products("Computers", "I'm Going to Tell You a Secret by Madonna [$26.99]", 26.99),
+			new Products("Computers", "Baby one more time by Britney Spears [$10.95]", 10.95),
+			new Products("Computers", "Justified by Justin Timberlake [$9.97]", 9.97),
+			new Products("Computers", "Loose By Nelly Furtado [$13.98]", 13.98),
+			new Products("Computers", "Gold Digger by Kanye West [$27.99]", 27.99),
+	
+	
+	};
+}

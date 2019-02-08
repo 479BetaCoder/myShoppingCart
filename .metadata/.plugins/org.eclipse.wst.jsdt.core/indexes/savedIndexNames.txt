@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+O:\myJavaEEWork\Assignment2_Cart\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+760717174.index
+3435007717.index
+4096094449.index
+2361040341.index
+3648768262.index
+976487901.index
