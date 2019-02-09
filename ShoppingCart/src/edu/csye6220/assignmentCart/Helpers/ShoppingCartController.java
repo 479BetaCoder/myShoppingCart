@@ -2,6 +2,7 @@ package edu.csye6220.assignmentCart.Helpers;
 
 import java.util.ArrayList;
 
+
 public class ShoppingCartController {
 
 	private ArrayList<OrderedProduct> itemsOrdered;
@@ -15,20 +16,43 @@ public class ShoppingCartController {
 	}
 
 	public synchronized void addOrder(String[] itemIds) {
+
+	
+		int currentOrdersSize = 0;
+
 		OrderedProduct order;
-		for (int i = 0; i < itemsOrdered.size(); i++) {
-			order = itemsOrdered.get(i);
+		if (itemsOrdered.size() == 0) {
 			for (String itemId : itemIds) {
-				if (order.getItemID().equals(itemId)) {
-					order.incrementNumItems();
-					return;
+				OrderedProduct newOrder = new OrderedProduct(StoreInventory.getProductById(itemId));
+				itemsOrdered.add(newOrder);
+			}
+
+		} else {
+			currentOrdersSize = itemsOrdered.size();
+			
+			for (String itemId : itemIds) {
+				boolean found = false;
+				for (int i = 0; i < currentOrdersSize; i++) {
+					order = (OrderedProduct) itemsOrdered.get(i);
+					if (itemId.equalsIgnoreCase(order.getItemID())) {
+						order.incrementNumItems();
+						found = true;
+					}
+				}
+				
+				if(!found) {
+				
+				OrderedProduct newOrder = new OrderedProduct(StoreInventory.getProductById(itemId));
+				itemsOrdered.add(newOrder);
 				}
 			}
+
 		}
 
-		for (String itemId : itemIds) {
-			OrderedProduct newOrder = new OrderedProduct(StoreInventory.getProductById(itemId));
-			itemsOrdered.add(newOrder);
-		}
+	}
+
+	public synchronized ArrayList<OrderedProduct> removeOrder(String itemId, ArrayList<OrderedProduct> itemsInList) {
+		itemsInList.remove(Integer.parseInt(itemId));
+		return itemsInList;
 	}
 }

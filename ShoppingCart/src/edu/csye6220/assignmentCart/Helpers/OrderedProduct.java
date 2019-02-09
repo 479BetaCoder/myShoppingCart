@@ -42,11 +42,8 @@ public class OrderedProduct {
 		setNumItems(getNumItems() + 1);
 	}
 
-	public void cancelOrder() {
-		setNumItems(0);
-	}
-
 	public double getTotalCost() {
+
 		return (getNumItems() * getUnitCost());
 	}
 

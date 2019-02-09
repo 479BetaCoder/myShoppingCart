@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.csye6220.assignmentCart.Helpers.NavigationUtility;
 import edu.csye6220.assignmentCart.Helpers.ShoppingCartController;
 import edu.csye6220.assignmentCart.Helpers.StoreInventory;
 
@@ -49,6 +50,7 @@ public class AddCartView extends HttpServlet {
 
 
 			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(900);
 			ShoppingCartController cart;
 			synchronized(session) {
 				cart = (ShoppingCartController)session.getAttribute("shpCart");
@@ -70,7 +72,8 @@ public class AddCartView extends HttpServlet {
 			prStore.println(docType + "<html>\n" + "<head><title>My Store</title></head>\n" + "<body>\n"
 					+ "<h1>Shop World</h1>" + "<hr></hr>"
 					+ "<p style=\"align:center\">The following item(s) has been added to your Shopping Cart successfully</p>\n"
-					+ "<div id=\"menu\" >\n" + "<ul>\n");
+					+ "<div id=\"menu\" >\n" + "<ul>\n"
+					);
 
 			
 				for (String itemId : selectedItemIds) {
@@ -78,12 +81,8 @@ public class AddCartView extends HttpServlet {
 				}
 			
 				}
-		prStore.println("</ul></div>" + "<div id=\"menu\" >\n" + "<ul style=\"list-style:none;\">\n"
-				+ "<li style=\"display:inline;padding:5px\"><a href=\"ViewCart\">[View Cart]</a></li>"
-				+ "<li style=\"display:inline;padding:5px\"><a href=\"Books\">[Go to Books Page]</a></li>\n"
-				+ "<li style=\"display:inline;padding:5px\"><a href=\"Music\">[Go to Music Page]</a></li>\n"
-				+ "<li style=\"display:inline;padding:5px\"><a href=\"Computers\">[Go to Computers Page]</a>\n</div>"
-				+ "</body></html>");
+		prStore.println("</ul></div>"); 
+		prStore.println(NavigationUtility.Navigator() + "</body></html>");
 	}
 
 		/**
