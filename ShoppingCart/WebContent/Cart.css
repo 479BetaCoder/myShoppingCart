@@ -1,0 +1,222 @@
+#shpName {
+	color: white;
+	background: mediumaquamarine;
+	padding: 20px;
+	text-align: center;
+	font-size: 40px;
+	font-family: fantasy;
+	border-bottom: 5px solid burlywood;
+	cursor: pointer;
+}
+
+#curTitle {
+	font-size: 16px;
+	font-family: sans-serif;
+	margin-left: 15px;
+	
+}
+
+#frmCollection {
+	margin-top: 20px;
+	margin-left: 15px;
+}
+
+#collContent {
+	height: 50px;
+}
+
+.chkItem {
+	margin-right: 10px;
+}
+
+#btnAddCart {
+	background: green;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 10px;
+	border: none;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+}
+
+#addCartDesc {
+	align: center;
+}
+
+#lsAddItems {
+	
+}
+
+.statusTxt {
+	align: center;
+}
+
+.infoNoItem {
+	
+}
+
+#summDiv {
+	margin-left: 20%;
+}
+
+#tblSumm {
+	align: center;
+}
+
+#imgDelete {
+	width: 40px;
+	outline: none;
+}
+
+#lastRow {
+	outline: thin solid teal;
+	color: limegreen;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#navBar {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+#navBar li {
+	float: left;
+}
+
+#navBar li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+#navBar li a:hover {
+	background-color: #111;
+}
+
+.container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 18px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color: #eee;
+}
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+	background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+	left: 6px;
+	top: 2px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+#customers {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#tblSumm td, #tblSumm th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#tblSumm tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#tblSumm tr:hover {
+	background-color: #ddd;
+}
+
+#tblSumm th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: teal;
+	color: white;
+}
+
+button {
+	outline: none;
+	//
+	this
+	one
+}
+
+#lsAddItems {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#lsAddItems li {
+	font: 15px sans-serif;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+	margin-left: 10px;
+}
+
+#lsAddItems li:last-child {
+	border: none;
+}
+
+#lsAddItems li:hover {
+	font-size: 20px;
+	background: #f6f6f6;
+	cursor: pointer;
+}

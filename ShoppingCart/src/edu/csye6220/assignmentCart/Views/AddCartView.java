@@ -30,69 +30,61 @@ public class AddCartView extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		response.setContentType("text/html");
 
 		String[] selectedItemIds = request.getParameterValues("item");
 		PrintWriter prStore = response.getWriter();
-
+		String docType = "<!DOCTYPE HTML>\n";
+		prStore.println(docType + "<html>\n" + "<head><title>AddCart View</title>" + NavigationUtility.cssLink()
+				+ "</head>\n" + "<body>\n" + NavigationUtility.cartName() + NavigationUtility.Navigator());
 		if (selectedItemIds == null || selectedItemIds.length == 0) {
-			prStore.println("<p>You have not selected any items to add to the cart</p>\n");
-		}
-		else {
+			prStore.println("<p id=\"curTitle\">You have not selected any items to add to the cart</p>\n");
+		} else {
 
 			String formURL = "ViewCart";
 			formURL = response.encodeURL(formURL);
 
-
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(900);
 			ShoppingCartController cart;
-			synchronized(session) {
-				cart = (ShoppingCartController)session.getAttribute("shpCart");
+			synchronized (session) {
+				cart = (ShoppingCartController) session.getAttribute("shpCart");
 				// New visitors get a fresh shopping cart.
 				// Previous visitors keep using their existing cart.
 				if (cart == null) {
 					cart = new ShoppingCartController();
 					session.setAttribute("shpCart", cart);
 				}
-				if(selectedItemIds.length !=0)
-				{
+				if (selectedItemIds.length != 0) {
 					cart.addOrder(selectedItemIds);
 				}
 
 			}
-
-
-			String docType = "<!DOCTYPE HTML>\n";
-			prStore.println(docType + "<html>\n" + "<head><title>My Store</title></head>\n" + "<body>\n"
-					+ "<h1>Shop World</h1>" + "<hr></hr>"
-					+ "<p style=\"align:center\">The following item(s) has been added to your Shopping Cart successfully</p>\n"
-					+ "<div id=\"menu\" >\n" + "<ul>\n"
-					);
-
-			
-				for (String itemId : selectedItemIds) {
-					prStore.println("<li>" + (StoreInventory.getProductById(itemId)).getProductDesc() + "</li>\n");
-				}
-			
-				}
-		prStore.println("</ul></div>"); 
-		prStore.println(NavigationUtility.Navigator() + "</body></html>");
-	}
-
-		/**
-		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-		 *      response)
-		 */
-		protected void doPost(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			// TODO Auto-generated method stub
-			doGet(request, response);
+			prStore.println(
+					"<p id=\"curTitle\">The following item(s) has been added to your Shopping Cart successfully</p>\n"
+							+ "<div id=\"menu\" >\n" + "<ul id=\"lsAddItems\">\n");
+			for (String itemId : selectedItemIds) {
+				prStore.println("<li>" + (StoreInventory.getProductById(itemId)).getProductDesc() + "</li>\n");
+			}
 		}
-
+		prStore.println("</ul></div>");
+		prStore.println("</body></html>");
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

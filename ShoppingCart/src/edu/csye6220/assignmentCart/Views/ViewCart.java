@@ -47,56 +47,59 @@ public class ViewCart extends HttpServlet {
 
 		synchronized (session) {
 			shpCart = (ShoppingCartController) session.getAttribute("shpCart");
+			String title = "Status of Your Order";
+			out.println("<!DOCTYPE HTML>\n" + "<html>\n" 
+					+ "<head><title>Cart Summary</title>"+NavigationUtility.cssLink()+"</head>\n"
+					+ "<body>\n" 
+					+ NavigationUtility.cartName()
+					+ NavigationUtility.Navigator()
+					+ "<h2 class=\"statusTxt\">" + title + "</h2>");
 			if (shpCart == null) {
 				out.println(
-						"<h2><I>Hello! You have not yet started shopping. Please visit our <a href=\"Store\">store</a></I></h2>");
+						"<p><i>Hello! You have not yet started shopping. Please visit our <a href=\"Store\">store</a></i></p>");
 			} else {
 				cartSum = 0;
-				
-				
 				ArrayList<OrderedProduct> itemsOrdered = shpCart.getItemsOrdered();
 				if(request.getParameter("itemID")!=null)
 				{
 				  itemsOrdered	= shpCart.removeOrder(request.getParameter("itemID"),itemsOrdered);
 				}
 				OrderedProduct order;
-				String title = "Status of Your Order";
-				out.println("<!DOCTYPE HTML>\n" + "<html>\n" + "<head><title>Cart Summary</title></head>\n"
-						+ "<body>\n" + "<h1 style=\"align:\"center\">" + title + "</h1>");
 				if (itemsOrdered.size() == 0) {
-					out.println("<h2><I>No items in your cart...</I></h2>");
+					out.println("<p class=\"infoNoItem\">OOPS! Your Cart is empty.. :( </p>");
 					
 				} else {
 					
-					out.println("<div>"
-							+ "<table ALIGN=\"CENTER\">\n" + "<TR BGCOLOR=\"#FFAD00\">\n" + "<TH>S.No\n"
-							+ "<TH>Description\n" + "<TH>Quantity\n" + " <TH>Unit Cost\n" + "<TH>Total Cost\n"
-							+ "<TH>Action\n");
+					out.println("<div id=\"summDiv\">"
+							+ "<table id=\"tblSumm\">\n" 
+							+ "<tr>\n" + "<th>S.No\n"
+							+ "<th>Description\n" + "<th>Quantity\n" + " <th>Unit Cost\n" + "<th>Total Cost\n"
+							+ "<th>Action\n");
 					for (int i = 0; i < itemsOrdered.size(); i++) {
 
 						order = (OrderedProduct) itemsOrdered.get(i);
 						cartSum += order.getTotalCost();
-						out.println("<TR>\n" + " <TD>" + (i + 1) + "." + "\n" + " <TD>" + order.getDescription() + "\n"
-								+ " <TD>" + order.getNumItems() + " <TD>" + formatter.format(order.getUnitCost())
-								+ "<TD>" + formatter.format(order.getTotalCost()) + "<TD>"
-								+ "<form method=\"POST\">\n"  // Submit to current URL
-								+"<INPUT TYPE=\"HIDDEN\" NAME=\"itemID\"\n" 
-								+" VALUE=\""+i+"\">\n"
-								+"<INPUT TYPE=\"SUBMIT\"\n "
-								+" VALUE=\"Remove from Cart\">\n" 
-								+"</SMALL>\n" 
-								+"</FORM>\n");
+						out.println("<tr>\n" + " <td>" + (i + 1) + "." + "\n" 
+								+ "<td>" + order.getDescription() + "\n"
+								+ "<td>" + order.getNumItems() + " "
+								+ "<td>" + formatter.format(order.getUnitCost())
+								+ "<td>" + formatter.format(order.getTotalCost()) 
+								+ "<td>"
+								+ "<form method=\"post\">\n"  // Submit to current URL
+								+"<input type=\"hidden\" name=\"itemID\"\n" 
+								+" value=\""+i+"\">\n"
+								+"<input id=\"imgDelete\" type=\"image\" name=\"submit\" src=\"Images/deleteItem.JPG\" alt=\"Remove\"/>"
+								+"</form>\n");
 					}
-					out.println("<tr style=\"outline:thin solid\"><td>Cart Value : </td>" + "<td></td>" + "<td></td>" + "<td></td>"
+					out.println("<tr id=\"lastRow\"><td>Cart Value : </td>" + "<td></td>" + "<td></td>" + "<td></td>"
 
-							+ "<td>" + formatter.format(cartSum) + "</td>");
+							+ "<td>" + formatter.format(cartSum) + "</td><td></td>");
 
 					out.println("</div>");
 							
 
 				}
-				out.println(NavigationUtility.Navigator()
-				+ "</body></html>");
+				out.println("</body></html>");
 				
 			}
 

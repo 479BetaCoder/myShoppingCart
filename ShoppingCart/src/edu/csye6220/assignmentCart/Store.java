@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.csye6220.assignmentCart.Helpers.NavigationUtility;
 import edu.csye6220.assignmentCart.Helpers.Products;
-
 
 /**
  * Servlet implementation class Store
@@ -19,7 +19,7 @@ import edu.csye6220.assignmentCart.Helpers.Products;
 @WebServlet("/Store")
 public class Store extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String pagetitle = "Welcome ! Thank you for visiting my cart";
+	private String pagetitle = "Welcome ! Thank you for visiting RKART. We hope you will have an awesome experience :) ";
 	private ArrayList<Products> listProd;
 
 	public String getPagetitle() {
@@ -56,30 +56,32 @@ public class Store extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		response.setContentType("text/html");
 		PrintWriter prStore = response.getWriter();
 		String formURL = "AddCartView";
 		formURL = response.encodeURL(formURL);
 
 		String docType = "<!DOCTYPE HTML>\n";
-		prStore.println(docType + "<html>\n" + "<head><title>My Store</title></head>\n" + "<body>\n"
-				+ "<h1>Shop World</h1>" + "<hr></hr>" + "<h2 style=\"align:center\">" + getPagetitle() + "</h2>\n"
-				+ "<div><a href=\"ViewCart\">View Cart</a></div>" + "<div id=\"menu\" >\n" + "<ul style=\"list-style:none;\">\n"
-				+ "            <li id=\"menuli\"><a href=\"Books\">Books</a></li>\n"
-				+ "            <li id=\"menuli\"><a href=\"Music\">Music</a></li>\n"
-				+ "            <li id=\"menuli\"><a href=\"Computers\">Computers</a>\n</div>");
-
+		prStore.println(docType + "<html>\n" + "<head><title>Home</title>" + NavigationUtility.cssLink() + "</head>\n"
+				+ "<body>\n" + NavigationUtility.cartName());
+		prStore.println(NavigationUtility.Navigator());
+		prStore.println("<p id=\"curTitle\">" + getPagetitle() + "</p>\n");
 		prStore.println(
-				"<form action=\"" + formURL + "\" method = \"post\" style=\"margin-top: 20px;margin-left: 15px;\">\n");
-		if (!(getListProd() == null || getListProd().size() == 0 )) {
+				"<form id=\"frmCollection\" action=\"" + formURL + "\" method = \"post\">\n");
+		if (!(getListProd() == null || getListProd().size() == 0)) {
 			for (Products pro : getListProd()) {
-				prStore.println("<div style=\"height:50px;\"><input style=\"margin-right:10px;\" type=\"checkbox\""
-						+ "name=\"item\" value=\"" + pro.getId() + "\">" + pro.getProductDesc()
-						+ "&nbsp;&nbsp;" + "[$" + pro.getProductCost() + "]" + "</div>");
+				prStore.println(
+						
+						"<label class=\"container\">"
+						+ pro.getProductDesc() + "&nbsp;&nbsp;" + 
+						"[$" + pro.getProductCost() + "]"
+						+ "<input type=\"checkbox\" name=\"item\" value=\""+ pro.getId() +"\">"
+						+ "<span class=\"checkmark\"></span></label>"
+						);
 
 			}
-			prStore.println("<input type=\"submit\" " + "value=\"Add to Cart\">\n" + "\n</form>");
+			prStore.println("<input id=\"btnAddCart\" type=\"submit\" " + "value=\"Add to Cart\">\n" + "\n</form>");
 		}
 		prStore.println("</body></html>");
 
