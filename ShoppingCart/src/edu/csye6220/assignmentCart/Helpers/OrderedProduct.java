@@ -25,6 +25,9 @@ public class OrderedProduct {
 		setProduct(pro);
 		setNumItems(1);
 	}
+	public OrderedProduct() {
+		
+	}
 
 	public String getItemID() {
 		return (getProduct().getId());

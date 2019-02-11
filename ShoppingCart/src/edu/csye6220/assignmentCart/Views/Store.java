@@ -1,4 +1,4 @@
-package edu.csye6220.assignmentCart;
+package edu.csye6220.assignmentCart.Views;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.csye6220.assignmentCart.Helpers.Products;
+import edu.csye6220.assignmentCart.Helpers.UtilityNavigator;
+
 /**
  * Servlet implementation class Store
  */
 @WebServlet("/Store")
-public abstract class Store extends HttpServlet {
+public class Store extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String pagetitle;
+	private String pagetitle = "Welcome ! Thank you for visiting RKART. We hope you will have an awesome experience :) ";
 	private ArrayList<Products> listProd;
 
 	public String getPagetitle() {
@@ -56,21 +59,30 @@ public abstract class Store extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter prStore = response.getWriter();
-		String formURL = "MyCartPage";
+		String formURL = "AddCartView";
 		formURL = response.encodeURL(formURL);
-
+		
 		String docType = "<!DOCTYPE HTML>\n";
-		prStore.println(docType + "<html>\n" + "<head><title>My Store</title></head>\n" + "<body>\n"
-				+ "<h2 style=\"align:center\">" + getPagetitle() + "</h2>");
-		prStore.println("<form action=\"" + formURL + "\">\n");
+		prStore.println(docType + "<html>\n" + "<head><title>Home</title>" + UtilityNavigator.cssLink() + "</head>\n"
+				+ "<body>\n" + UtilityNavigator.cartName());
+		prStore.println(UtilityNavigator.Navigator());
+		prStore.println("<p id=\"curTitle\">" + getPagetitle() + "</p>\n");
+		prStore.println(
+				"<form id=\"frmCollection\" action=\"" + formURL + "\" method = \"post\" type=\"redirect\">\n");
+		if (!(getListProd() == null || getListProd().size() == 0)) {
+			for (Products pro : getListProd()) {
+				prStore.println(
+						
+						"<label class=\"container\">"
+						+ pro.getProductDesc() + "&nbsp;&nbsp;" + 
+						"[$" + pro.getProductCost() + "]"
+						+ "<input type=\"checkbox\" name=\"item\" value=\""+ pro.getId() +"\">"
+						+ "<span class=\"checkmark\"></span></label>"
+						);
 
-		for (Products pro : getListProd()) {
-			prStore.println("<div><input type=\"checkbox\"" + "name=\"" + pro.getId() + "\">"
-					+ pro.getProductDesc() + "[$" + pro.getProductCost() + "]" + "</div>");
-			prStore.println();
+			}
+			prStore.println("<input id=\"btnAddCart\" type=\"submit\" " + "value=\"Add to Cart\">\n" + "\n</form>");
 		}
-
-		prStore.println("<input type=\"submit\" " + "value=\"Add to Cart\">\n" + "\n</form>");
 		prStore.println("</body></html>");
 
 	}

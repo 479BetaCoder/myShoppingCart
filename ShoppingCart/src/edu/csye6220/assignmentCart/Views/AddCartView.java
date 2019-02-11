@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.csye6220.assignmentCart.Helpers.NavigationUtility;
+import edu.csye6220.assignmentCart.Helpers.UtilityNavigator;
+import edu.csye6220.assignmentCart.Model.StoreInventory;
 import edu.csye6220.assignmentCart.Helpers.ShoppingCartController;
-import edu.csye6220.assignmentCart.Helpers.StoreInventory;
 
 /**
  * Servlet implementation class AddCartView
@@ -41,14 +41,11 @@ public class AddCartView extends HttpServlet {
 		String[] selectedItemIds = request.getParameterValues("item");
 		PrintWriter prStore = response.getWriter();
 		String docType = "<!DOCTYPE HTML>\n";
-		prStore.println(docType + "<html>\n" + "<head><title>AddCart View</title>" + NavigationUtility.cssLink()
-				+ "</head>\n" + "<body>\n" + NavigationUtility.cartName() + NavigationUtility.Navigator());
+		prStore.println(docType + "<html>\n" + "<head><title>AddCart View</title>" + UtilityNavigator.cssLink()
+				+ "</head>\n" + "<body>\n" + UtilityNavigator.cartName() + UtilityNavigator.Navigator());
 		if (selectedItemIds == null || selectedItemIds.length == 0) {
 			prStore.println("<p id=\"curTitle\">You have not selected any items to add to the cart</p>\n");
 		} else {
-
-			String formURL = "ViewCart";
-			formURL = response.encodeURL(formURL);
 
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(900);
@@ -63,18 +60,22 @@ public class AddCartView extends HttpServlet {
 				}
 				if (selectedItemIds.length != 0) {
 					cart.addOrder(selectedItemIds);
+					
 				}
 
 			}
 			prStore.println(
 					"<p id=\"curTitle\">The following item(s) has been added to your Shopping Cart successfully</p>\n"
 							+ "<div id=\"menu\" >\n" + "<ul id=\"lsAddItems\">\n");
+			prStore.println("<form>\n");
 			for (String itemId : selectedItemIds) {
 				prStore.println("<li>" + (StoreInventory.getProductById(itemId)).getProductDesc() + "</li>\n");
 			}
 		}
+
 		prStore.println("</ul></div>");
-		prStore.println("</body></html>");
+		prStore.println("</form></body></html>");
+
 	}
 
 	/**

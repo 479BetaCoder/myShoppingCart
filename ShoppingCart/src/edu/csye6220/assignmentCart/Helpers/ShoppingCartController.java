@@ -1,7 +1,9 @@
 package edu.csye6220.assignmentCart.Helpers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import edu.csye6220.assignmentCart.Model.StoreInventory;
 
 public class ShoppingCartController {
 
@@ -17,7 +19,6 @@ public class ShoppingCartController {
 
 	public synchronized void addOrder(String[] itemIds) {
 
-	
 		int currentOrdersSize = 0;
 
 		OrderedProduct order;
@@ -29,7 +30,7 @@ public class ShoppingCartController {
 
 		} else {
 			currentOrdersSize = itemsOrdered.size();
-			
+
 			for (String itemId : itemIds) {
 				boolean found = false;
 				for (int i = 0; i < currentOrdersSize; i++) {
@@ -39,11 +40,11 @@ public class ShoppingCartController {
 						found = true;
 					}
 				}
-				
-				if(!found) {
-				
-				OrderedProduct newOrder = new OrderedProduct(StoreInventory.getProductById(itemId));
-				itemsOrdered.add(newOrder);
+
+				if (!found) {
+
+					OrderedProduct newOrder = new OrderedProduct(StoreInventory.getProductById(itemId));
+					itemsOrdered.add(newOrder);
 				}
 			}
 
@@ -52,7 +53,21 @@ public class ShoppingCartController {
 	}
 
 	public synchronized ArrayList<OrderedProduct> removeOrder(String itemId, ArrayList<OrderedProduct> itemsInList) {
-		itemsInList.remove(Integer.parseInt(itemId));
+
+		ArrayList<OrderedProduct> list = itemsInList;
+
+		for (Iterator<OrderedProduct> iterator = list.iterator(); iterator.hasNext();) {
+			OrderedProduct orPro = iterator.next();
+			if (orPro.getItemID().equalsIgnoreCase(itemId)) {
+				int numItems = orPro.getNumItems();
+				if (numItems == 1) {
+					iterator.remove();
+				} else {
+					orPro.setNumItems(numItems - 1);
+				}
+			}
+		}
+
 		return itemsInList;
 	}
 }

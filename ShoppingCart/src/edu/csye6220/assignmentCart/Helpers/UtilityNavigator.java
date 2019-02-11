@@ -1,23 +1,6 @@
 package edu.csye6220.assignmentCart.Helpers;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-
-/**
- * Servlet implementation class NavigationUtility
- */
-@WebServlet("/NavigationUtility")
-public class NavigationUtility extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public NavigationUtility() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+public class UtilityNavigator {
 	public static String cssLink() {
 		return ("<link rel='stylesheet' type='text/css' href='Cart.css'><link rel=\"shortcut icon\" href=\"Images/myIcon.JPG\"/>");
 	}

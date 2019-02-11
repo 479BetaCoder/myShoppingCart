@@ -1,6 +1,8 @@
-package edu.csye6220.assignmentCart.Helpers;
+package edu.csye6220.assignmentCart.Model;
 
 import java.util.ArrayList;
+
+import edu.csye6220.assignmentCart.Helpers.Products;
 
 public class StoreInventory {
 

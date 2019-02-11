@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
 
-import edu.csye6220.assignmentCart.Store;
 import edu.csye6220.assignmentCart.Helpers.Products;
-import edu.csye6220.assignmentCart.Helpers.StoreInventory;
+import edu.csye6220.assignmentCart.Model.StoreInventory;
+import edu.csye6220.assignmentCart.Views.Store;
 
 /**
  * Servlet implementation class Music

@@ -1,3 +1,5 @@
+/* Common Styling */
+
 #shpName {
 	color: white;
 	background: mediumaquamarine;
@@ -13,7 +15,7 @@
 	font-size: 16px;
 	font-family: sans-serif;
 	margin-left: 15px;
-	
+	color: tomato;
 }
 
 #frmCollection {
@@ -21,60 +23,8 @@
 	margin-left: 15px;
 }
 
-#collContent {
-	height: 50px;
-}
-
-.chkItem {
-	margin-right: 10px;
-}
-
-#btnAddCart {
-	background: green;
-	color: white;
-	padding: 10px 15px;
-	border-radius: 10px;
-	border: none;
-	text-align: center;
-	display: inline-block;
-	cursor: pointer;
+button {
 	outline: none;
-}
-
-#addCartDesc {
-	align: center;
-}
-
-#lsAddItems {
-	
-}
-
-.statusTxt {
-	align: center;
-}
-
-.infoNoItem {
-	
-}
-
-#summDiv {
-	margin-left: 20%;
-}
-
-#tblSumm {
-	align: center;
-}
-
-#imgDelete {
-	width: 40px;
-	outline: none;
-}
-
-#lastRow {
-	outline: thin solid teal;
-	color: limegreen;
-	font-size: 18px;
-	font-weight: bold;
 }
 
 #navBar {
@@ -101,6 +51,7 @@
 	background-color: #111;
 }
 
+/* Check box styling for Store. (source --> w3Schools) */
 .container {
 	display: block;
 	position: relative;
@@ -164,10 +115,55 @@
 	transform: rotate(45deg);
 }
 
-#customers {
+/* Styles for addCartView list */
+#btnAddCart {
+	background: green;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 10px;
+	border: none;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+}
+
+#lsAddItems {
+	list-style-type: square;
+	margin: 0;
+	padding: 0;
+}
+
+#lsAddItems li {
+	font: 15px sans-serif;
+	border-bottom: 1px solid #ccc;
+	padding: 8px;
+	margin-left: 30px;
+}
+
+#lsAddItems li:last-child {
+	border: none;
+}
+
+#lsAddItems li:hover {
+	font-size: 20px;
+	background: #f6f6f6;
+	cursor: pointer;
+}
+
+/* Styles for ViewCart */
+
+.vCartTitle {
+	margin-left: 45%;
+	font-family: sans-serif;
+	font-size: 18px;
+	color: saddlebrown;
+}
+
+#tblSumm {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 100%;
+	width: 95%;
 }
 
 #tblSumm td, #tblSumm th {
@@ -191,32 +187,24 @@
 	color: white;
 }
 
-button {
+#lastRow {
+	outline: thin solid teal;
+	color: limegreen;
+	font-size: 18px;
+	font-weight: bold;
+}
+#summDiv {
+	margin-left: 5%;
+}
+
+#imgDelete {
+	width: 40px;
 	outline: none;
-	//
-	this
-	one
 }
-
-#lsAddItems {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-
-#lsAddItems li {
-	font: 15px sans-serif;
-	border-bottom: 1px solid #ccc;
-	padding: 10px;
-	margin-left: 10px;
-}
-
-#lsAddItems li:last-child {
-	border: none;
-}
-
-#lsAddItems li:hover {
-	font-size: 20px;
-	background: #f6f6f6;
-	cursor: pointer;
+#warInfo {
+	color: red;
+	font-style: italic;
+	font-family: sans-serif;
+	font-size: 16px;
+	margin-left: 2%;
 }
